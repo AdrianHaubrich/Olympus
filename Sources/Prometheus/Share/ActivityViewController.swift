@@ -5,6 +5,7 @@
 //  Created by Adrian Haubrich on 14.11.21.
 //
 
+#if !os(macOS)
 import UIKit
 import SwiftUI
 
@@ -25,3 +26,4 @@ public struct ActivityViewController: UIViewControllerRepresentable {
     public func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityViewController>) {}
     
 }
+#endif

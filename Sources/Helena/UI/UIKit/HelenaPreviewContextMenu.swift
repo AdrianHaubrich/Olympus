@@ -5,9 +5,13 @@
 //  Created by Adrian Haubrich on 06.11.21.
 //
 
-import UIKit
 import SwiftUI
 
+#if os(macOS)
+import MacOSCompatibility
+#else
+import UIKit
+#endif
 
 public struct HelenaPreviewContextMenu<Content: View> {
     let destination: Content

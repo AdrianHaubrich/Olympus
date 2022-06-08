@@ -5,6 +5,7 @@
 //  Created by Adrian Haubrich on 14.11.21.
 //
 
+#if !os(macOS)
 import UIKit
 import SwiftUI
 
@@ -61,3 +62,4 @@ struct HelenaZoomableScrollView<Content: View>: UIViewRepresentable {
         }
     }
 }
+#endif

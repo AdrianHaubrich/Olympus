@@ -5,7 +5,11 @@
 //  Created by Adrian Haubrich on 14.11.21.
 //
 
+#if os(macOS)
+import MacOSCompatibility
+#else
 import UIKit
+#endif
 
 public protocol HelenaChatMessage {
     

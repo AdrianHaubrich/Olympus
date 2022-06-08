@@ -5,9 +5,10 @@
 //  Created by Adrian Haubrich on 24.10.21.
 //
 
+#if !os(macOS)
 import Foundation
-import UIKit
 import SwiftUI
+import UIKit
 
 public struct LocalImageService {
     
@@ -131,3 +132,4 @@ extension LocalImageService {
     }
     
 }
+#endif

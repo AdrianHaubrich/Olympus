@@ -5,6 +5,7 @@
 //  Created by Adrian Haubrich on 26.01.21.
 //
 
+#if !os(macOS)
 import SwiftUI
 import UIKit
 
@@ -131,3 +132,4 @@ public struct HelenaModernTextViewWithIcon: View {
         }.padding(.trailing, 12)
     }
 }
+#endif

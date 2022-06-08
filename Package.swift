@@ -27,10 +27,20 @@ let package = Package(
             name: "Hermes",
             targets: ["Hermes"]),
         
+        // MacOS Compatibility Library
+        .library(
+            name: "MacOSCompatibility",
+            targets: ["MacOSCompatibility"]),
+        
         // Prometheus Library
         .library(
             name: "Prometheus",
             targets: ["Prometheus"]),
+        
+        // Prometheus Firebase Storage
+        .library(
+            name: "PrometheusFirebaseStorage",
+            targets: ["PrometheusFirebaseStorage"]),
         
         // Prometheus Firestore Library
         .library(
@@ -61,6 +71,9 @@ let package = Package(
         .target(
             name: "Charon",
             dependencies: [
+                // First-Party
+                "MacOSCompatibility",
+                
                 // Firebase
                 .product(name: "FirebaseAuth", package: "Firebase"),
                 .product(name: "FirebaseFirestore", package: "Firebase"),
@@ -78,25 +91,49 @@ let package = Package(
             dependencies: [
                 // First-Party
                 "Helena",
+                "Charon",
                 "Prometheus",
+                "PrometheusFirebaseStorage",
+                "PrometheusFirestore",
+                "MacOSCompatibility",
                 
                 // Firebase
-                .product(name: "FirebaseAuth", package: "Firebase"),
-                .product(name: "FirebaseFirestore", package: "Firebase"),
-                .product(name: "FirebaseFirestoreSwift-Beta", package: "Firebase"),
-                .product(name: "FirebaseStorage", package: "Firebase"),
-                .product(name: "FirebaseStorageSwift-Beta", package: "Firebase")
+                .product(name: "FirebaseAuth", package: "Firebase")
             ]),
         
-        // Prometheus Target
+        // MacOSCompatibility Target
         .target(
-            name: "Prometheus",
+            name: "MacOSCompatibility",
             dependencies: []),
         
         // Prometheus Target
         .target(
+            name: "Prometheus",
+            dependencies: [
+                // First Party
+                "MacOSCompatibility"
+            ]),
+        
+        // Prometheus Firebase Storage Target
+        .target(
+            name: "PrometheusFirebaseStorage",
+            dependencies: [
+                // First-Party
+                "Prometheus",
+                "MacOSCompatibility",
+                
+                // Firebase
+                .product(name: "FirebaseStorage", package: "Firebase"),
+                .product(name: "FirebaseStorageSwift-Beta", package: "Firebase")
+            ]),
+        
+        // Prometheus Firestore Target
+        .target(
             name: "PrometheusFirestore",
             dependencies: [
+                // First-Party
+                "MacOSCompatibility",
+                
                 // Firebase
                 .product(name: "FirebaseFirestore", package: "Firebase"),
                 .product(name: "FirebaseFirestoreSwift-Beta", package: "Firebase")

@@ -6,8 +6,13 @@
 //
 
 import Foundation
-import UIKit
 import SwiftUI
+
+#if os(macOS)
+import MacOSCompatibility
+#else
+import UIKit
+#endif
 
 public struct ImageLoader {
     

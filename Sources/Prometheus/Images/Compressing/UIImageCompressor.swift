@@ -5,8 +5,10 @@
 //  Created by Adrian Haubrich on 24.10.21.
 //
 
+#if !os(macOS)
 import Foundation
 import UIKit
+
 
 extension UIImage {
     
@@ -73,3 +75,4 @@ extension UIImage {
     }
     
 }
+#endif

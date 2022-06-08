@@ -8,7 +8,13 @@
 import Foundation
 import Combine
 import Prometheus
+import PrometheusFirestore
+
+#if os(macOS)
+import MacOSCompatibility
+#else
 import UIKit
+#endif
 
 class ChatDetailViewModel: ViewModel {
     
