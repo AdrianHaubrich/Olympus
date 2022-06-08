@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import Combine
-import Firebase
 import FirebaseStorage
 import FirebaseStorageSwift
 import Prometheus

@@ -11,6 +11,8 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import PrometheusFirebaseStorage
+import PrometheusFirestore
 
 class FirestoreChatService: ChatService {
     
