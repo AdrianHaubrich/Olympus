@@ -13,5 +13,5 @@ enum FirebaseAuthServiceError: String, Error {
     case loginWithCredentialFailed = "Login with credential failed."
     case logoutFailed = "Logout failed."
     
-    case unableToGetUID = "Unabl to get uid."
+    case unableToGetUID = "Unable to get uid."
 }
