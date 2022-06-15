@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Olympus",
-    platforms: [.iOS(.v15)/*, .macOS(.v12)*/],
+    platforms: [.iOS(.v15), .watchOS(.v7)/*, .macOS(.v12)*/],
     products: [
         // Olympus Library
         .library(

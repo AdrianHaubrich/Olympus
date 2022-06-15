@@ -14,4 +14,7 @@ enum FirebaseAuthServiceError: String, Error {
     case logoutFailed = "Logout failed."
     
     case unableToGetUID = "Unable to get uid."
+    case unableToUnwrapUID = "Unable to safely unwrap optional uid."
+    
+    case loginMockFailed = "Login to mock account failed."
 }

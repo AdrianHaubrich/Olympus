@@ -8,14 +8,22 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import Prometheus
 
-public class FirebaseAuthService: AuthService {}
+public class FirebaseAuthService: AuthService {
+    
+    let mockDataIdKey = "mockDataUIDKeys"
+    let mockDataUsernameKeyPrefix = "_mockDataUsername"
+    let mockDataPasswordKeyPrefix = "_mockDataPassword"
+    
+}
 
 
 // MARK: - Create Account
 extension FirebaseAuthService {
     
-    public func createAccount(with email: String, password: String) async throws {
+    @discardableResult
+    public func createAccount(with email: String, password: String) async throws -> String? {
         
         // Auth
         do {
@@ -38,6 +46,7 @@ extension FirebaseAuthService {
             throw error
         }
         
+        return uid
     }
     
 }
@@ -131,5 +140,90 @@ extension FirebaseAuthService {
         }
         
     }
+    
+}
+
+
+// MARK: - Mock
+extension FirebaseAuthService {
+    
+    /// Generate a random string.
+    ///
+    /// Can be used to generate unsecure passwords. Only use for mock-data.
+    ///
+    /// - Parameter length: The length of the string. Needs to be 5 of higher.
+    /// - Returns: The generated string.
+    private func generateRandomMockString(length: Int) -> String {
+        if length >= 5 {
+            let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            var string = String((0..<length-4).map{ _ in letters.randomElement()! })
+            string += "Aa!1" // Append to fulfill necessary password-rules
+            return string
+        }
+        return ""
+    }
+    
+    @discardableResult
+    public func setUpMockAccount() async throws -> (uid: String, username: String, password: String)? {
+        
+        let mockUsername = generateRandomMockString(length: 12)
+        let mockPassword = generateRandomMockString(length: 24)
+        
+        do {
+            
+            // Create Account
+            let uid = try await self.createAccount(with: mockUsername, password: mockUsername)
+            
+            guard let uid = uid else {
+                throw FirebaseAuthServiceError.accountCreationEmailFailed
+            }
+            
+            // Safe login-data
+            UserDefaultsService.add(uid, to: self.mockDataIdKey)
+            UserDefaultsService.set(mockUsername, with: uid + self.mockDataUsernameKeyPrefix)
+            UserDefaultsService.set(mockPassword, with: uid + self.mockDataPasswordKeyPrefix)
+            
+            return (uid, mockUsername, mockPassword)
+            
+        } catch {
+            throw error
+        }
+        
+    }
+    
+    public func signInMockAccount(uid: String?) async throws {
+        
+        // Get uid
+        let uid = try? unwrapUID(uid: uid)
+        
+        guard let uid = uid else {
+            throw FirebaseAuthServiceError.unableToUnwrapUID
+        }
+        
+        // Get mail & password
+        let mail = UserDefaults.standard.string(forKey: uid + self.mockDataUsernameKeyPrefix)
+        let password = UserDefaults.standard.string(forKey: uid + self.mockDataPasswordKeyPrefix)
+        
+        guard let mail = mail, let password = password else {
+            throw FirebaseAuthServiceError.loginMockFailed
+        }
+        
+        try? await self.signIn(with: mail, password: password)
+    }
+    
+    private func unwrapUID(uid: String?) throws -> String {
+        if let uid = uid {
+            return uid
+        } else {
+            let uid = try? UserDefaultsService.getStringArray(by: self.mockDataIdKey).first
+            
+            guard let uid = uid else {
+                throw FirebaseAuthServiceError.unableToUnwrapUID
+            }
+            
+            return uid
+        }
+    }
+
     
 }
