@@ -27,7 +27,6 @@ extension UserDefaultsService {
         set(value, with: key.rawValue)
     }
     
-    
     static func remove(for key: String) {
         UserDefaults.standard.removeObject(forKey: key)
     }
@@ -58,7 +57,7 @@ extension UserDefaultsService {
     
     /// Saves the given value to an array using the given key.
     ///
-    /// This function appends the value instead of overwritting the saved data.
+    /// This function appends the value instead of overwritting the saved data. If the array is not set yet, it will be set with the given value.set
     ///
     /// - Parameters:
     ///   - value: The value that should be saved.
