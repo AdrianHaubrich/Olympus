@@ -7,7 +7,7 @@
 
 import Combine
 import FirebaseStorage
-import FirebaseStorageSwift
+import FirebaseStorageCombineSwift
 import UIKit
 
 struct FirebaseStorageSubscription {}

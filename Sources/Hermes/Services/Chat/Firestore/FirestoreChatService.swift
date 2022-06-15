@@ -44,14 +44,10 @@ extension FirestoreChatService {
     func fetchChat(by chatID: String) async -> Chat? {
         do {
             
-            let doc = try await FirestoreChatReferenceFactory
+            let chat = try await FirestoreChatReferenceFactory
                 .generateChatReference(by: chatID)
                 .getDocument()
                 .data(as: Chat.self)
-            
-            guard let chat = doc else {
-                throw FirestoreError.failedFetch
-            }
             
             return chat
             
@@ -72,9 +68,8 @@ extension FirestoreChatService {
             // Set Pointer for next fetch
             self.lastChatDoc = snapshot.documents.last
             
-            // TODO: Unsafe
             let chats = try snapshot.documents.map {
-                try $0.data(as: Chat.self)!
+                try $0.data(as: Chat.self)
             }
             
             return chats
@@ -96,9 +91,8 @@ extension FirestoreChatService {
             // Set Pointer for next fetch
             self.lastMessageDoc = snapshot.documents.last
             
-            // TODO: Unsafe
             let messages = try snapshot.documents.map {
-                try $0.data(as: Message.self)!
+                try $0.data(as: Message.self)
             }
             
             return messages
@@ -114,14 +108,10 @@ extension FirestoreChatService {
                               and messageID: String) async -> Message? {
         do {
             
-            let doc = try await FirestoreChatReferenceFactory
+            let message = try await FirestoreChatReferenceFactory
                 .generateMessageReference(by: chatID, and: messageID)
                 .getDocument()
                 .data(as: Message.self)
-            
-            guard let message = doc else {
-                throw FirestoreError.failedFetch
-            }
             
             return message
             

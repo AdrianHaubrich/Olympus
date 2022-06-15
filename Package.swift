@@ -56,7 +56,7 @@ let package = Package(
         // Firebase
         .package(name: "Firebase",
                  url: "https://github.com/firebase/firebase-ios-sdk.git",
-                 from: "8.0.0")
+                 from: "9.1.0")
     ],
     targets: [
         // Olympus Targets
@@ -77,7 +77,7 @@ let package = Package(
                 // Firebase
                 .product(name: "FirebaseAuth", package: "Firebase"),
                 .product(name: "FirebaseFirestore", package: "Firebase"),
-                .product(name: "FirebaseFirestoreSwift-Beta", package: "Firebase")
+                .product(name: "FirebaseFirestoreSwift", package: "Firebase")
             ]),
         
         // Helena Target
@@ -98,7 +98,9 @@ let package = Package(
                 "MacOSCompatibility",
                 
                 // Firebase
-                .product(name: "FirebaseAuth", package: "Firebase")
+                .product(name: "FirebaseAuth", package: "Firebase"), // TODO: Remove
+                .product(name: "FirebaseFirestore", package: "Firebase"),
+                .product(name: "FirebaseFirestoreSwift", package: "Firebase")
             ]),
         
         // MacOSCompatibility Target
@@ -124,7 +126,7 @@ let package = Package(
                 
                 // Firebase
                 .product(name: "FirebaseStorage", package: "Firebase"),
-                .product(name: "FirebaseStorageSwift-Beta", package: "Firebase")
+                .product(name: "FirebaseStorageCombine-Community", package: "Firebase")
             ]),
         
         // Prometheus Firestore Target
@@ -136,7 +138,7 @@ let package = Package(
                 
                 // Firebase
                 .product(name: "FirebaseFirestore", package: "Firebase"),
-                .product(name: "FirebaseFirestoreSwift-Beta", package: "Firebase")
+                .product(name: "FirebaseFirestoreSwift", package: "Firebase")
             ]),
         
         // Zeus Target

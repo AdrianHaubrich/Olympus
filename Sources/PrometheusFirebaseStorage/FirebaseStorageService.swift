@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Combine
 import FirebaseStorage
-import FirebaseStorageSwift
+import FirebaseStorageCombineSwift
 import Prometheus
 
 public class FirebaseStorageService {
