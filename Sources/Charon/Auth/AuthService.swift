@@ -47,7 +47,7 @@ public protocol AuthService {
     ///
     /// The uid, username and password is saved in user defaults (on the device) to enable a password-less login flow.
     ///
-    ///  - warning: Only use for MOCK accounts! Never use it to create a productive, real user.
+    ///  - warning: Only use for MOCK accounts! Never use it to create a productive, real or privileged user.
     ///
     /// - Returns: The login data of the created mock user: uid, username, password
     @discardableResult
