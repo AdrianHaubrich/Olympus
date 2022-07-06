@@ -7,7 +7,7 @@
 
 #if os(macOS)
 import MacOSCompatibility
-#else
+#if canImport(UIKit)
 import UIKit
 #endif
 

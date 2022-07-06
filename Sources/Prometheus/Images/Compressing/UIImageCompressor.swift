@@ -5,8 +5,8 @@
 //  Created by Adrian Haubrich on 24.10.21.
 //
 
-#if !os(macOS)
 import Foundation
+#if canImport(UIKit)
 import UIKit
 
 
