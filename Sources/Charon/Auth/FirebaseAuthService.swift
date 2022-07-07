@@ -168,7 +168,7 @@ extension FirebaseAuthService {
     @discardableResult
     public func setUpMockAccount() async throws -> (uid: String, email: String, password: String)? {
         
-        let mockEmail = "\(generateRandomMockString(length: 12))@olympus-firebase.com"
+        let mockEmail = "\(generateRandomMockString(length: 12).lowercased())@olympus-firebase.com"
         let mockPassword = generateRandomMockString(length: 24)
         
         do {
@@ -203,7 +203,7 @@ extension FirebaseAuthService {
         }
         
         // Get mail & password
-        let mail = UserDefaults.standard.string(forKey: uid + self.mockDataEmailKeyPrefix)
+        let mail = UserDefaults.standard.string(forKey: uid + self.mockDataEmailKeyPrefix)?.lowercased()
         let password = UserDefaults.standard.string(forKey: uid + self.mockDataPasswordKeyPrefix)
         
         guard let mail = mail, let password = password else {
