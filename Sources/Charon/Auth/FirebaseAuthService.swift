@@ -193,7 +193,7 @@ extension FirebaseAuthService {
         
     }
     
-    public func signInMockAccount(uid: String?) async throws {
+    public func signInMockAccount(uid: String? = nil) async throws {
         
         // Get uid
         let uid = try? unwrapUID(uid: uid)
