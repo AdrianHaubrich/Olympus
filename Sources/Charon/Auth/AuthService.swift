@@ -51,7 +51,7 @@ public protocol AuthService {
     ///
     /// - Returns: The login data of the created mock user: uid, username, password
     @discardableResult
-    func setUpMockAccount() async throws -> (uid: String, username: String, password: String)?
+    func setUpMockAccount() async throws -> (uid: String, email: String, password: String)?
     
     /// Login to an existing mock account
     ///

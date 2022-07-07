@@ -13,7 +13,7 @@ import Prometheus
 public class FirebaseAuthService: AuthService {
     
     let mockDataIdKey = "mockDataUIDKeys"
-    let mockDataUsernameKeyPrefix = "_mockDataUsername"
+    let mockDataEmailKeyPrefix = "_mockDataEmail"
     let mockDataPasswordKeyPrefix = "_mockDataPassword"
     
     public init() {}
@@ -166,15 +166,15 @@ extension FirebaseAuthService {
     }
     
     @discardableResult
-    public func setUpMockAccount() async throws -> (uid: String, username: String, password: String)? {
+    public func setUpMockAccount() async throws -> (uid: String, email: String, password: String)? {
         
-        let mockUsername = generateRandomMockString(length: 12)
+        let mockEmail = "\(generateRandomMockString(length: 12))@olympus-firebase.com"
         let mockPassword = generateRandomMockString(length: 24)
         
         do {
             
             // Create Account
-            let uid = try await self.createAccount(with: mockUsername, password: mockUsername)
+            let uid = try await self.createAccount(with: mockEmail, password: mockEmail)
             
             guard let uid = uid else {
                 throw FirebaseAuthServiceError.accountCreationEmailFailed
@@ -182,10 +182,10 @@ extension FirebaseAuthService {
             
             // Safe login-data
             UserDefaultsService.add(uid, to: self.mockDataIdKey)
-            UserDefaultsService.set(mockUsername, with: uid + self.mockDataUsernameKeyPrefix)
+            UserDefaultsService.set(mockEmail, with: uid + self.mockDataEmailKeyPrefix)
             UserDefaultsService.set(mockPassword, with: uid + self.mockDataPasswordKeyPrefix)
             
-            return (uid, mockUsername, mockPassword)
+            return (uid, mockEmail, mockPassword)
             
         } catch {
             throw error
@@ -203,7 +203,7 @@ extension FirebaseAuthService {
         }
         
         // Get mail & password
-        let mail = UserDefaults.standard.string(forKey: uid + self.mockDataUsernameKeyPrefix)
+        let mail = UserDefaults.standard.string(forKey: uid + self.mockDataEmailKeyPrefix)
         let password = UserDefaults.standard.string(forKey: uid + self.mockDataPasswordKeyPrefix)
         
         guard let mail = mail, let password = password else {
