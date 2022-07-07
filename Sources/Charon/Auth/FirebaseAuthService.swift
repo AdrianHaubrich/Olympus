@@ -16,6 +16,8 @@ public class FirebaseAuthService: AuthService {
     let mockDataUsernameKeyPrefix = "_mockDataUsername"
     let mockDataPasswordKeyPrefix = "_mockDataPassword"
     
+    public init() {}
+    
 }
 
 
