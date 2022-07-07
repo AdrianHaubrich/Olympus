@@ -61,5 +61,6 @@ public protocol AuthService {
     
     // func logoutMockAccount() async throws
     // func deleteMockAccount() async throws
+    // func resetMockAccount() async throws
     
 }
